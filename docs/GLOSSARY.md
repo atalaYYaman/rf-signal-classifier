@@ -9,6 +9,8 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **Örnekleme hızı (fs):** Saniyede kaç IQ örneği alındığı. Büyüdükçe daha geniş bant görürsünüz.
 - **Bant genişliği:** Sinyalin frekans ekseninde kapladığı genişlik.
 - **SNR (sinyal/gürültü oranı, dB):** Sinyal gücünün gürültüye oranı. 0 dB'de sinyal ile gürültü eşit güçtedir; düştükçe sınıflandırmak zorlaşır.
+- **İşleme kazancı:** Birçok örneği birleştirerek (ortalama, FFT) SNR'ı yapay olarak yükseltmek; N örnek ≈ +10·log10(N) dB. Ton gibi dar sinyaller bundan en çok yararlanır.
+- **Sembol hata oranı (SER):** Alıcının bir sembolü yanlış kestiği oran; SNR düştükçe artar. QPSK'da rastgele tahminde %75'tir.
 - **Spektrum / waterfall:** Sinyalin frekansa göre gücü / bunun zamanla akan görüntüsü.
 - **Takımyıldız (constellation):** IQ düzleminde sembollerin kümelendiği noktalar; modülasyonu ayırt etmede güçlü ipucu.
 

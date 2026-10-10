@@ -18,9 +18,9 @@ Durum: ☐ başlamadı · ◐ sürüyor · ☑ bitti
 ## Aşama 2 — İlk model
 - ☐ Kademe (a): şemanın kural tabanlı ağacı (eşik kalibrasyonu)
 - ☐ Kademe (b): 21 özellik + random forest
-- ☐ Kademe (c): küçük CNN, ham IQ
-- ☐ Eğitim döngüsü, kayıp/doğruluk grafikleri
-- ☐ Karışıklık matrisi, SNR'a göre doğruluk eğrisi
+- ◐ Kademe (c): küçük CNN, ham IQ — ilk koşu bitti (test %89,8; ≥0 dB %99+, −10…−5 dB %54). İyileştirme açık
+- ☑ Eğitim döngüsü, kayıp/doğruluk grafikleri (`src/train.py`)
+- ☑ Karışıklık matrisi, SNR'a göre doğruluk eğrisi
 
 ## Aşama 3 — Büyütme
 - ☐ Daha fazla sınıf, daha zor koşullar

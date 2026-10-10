@@ -33,6 +33,9 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **Aşırı öğrenme (overfitting):** Model eğitim verisini ezberler, yeni veride kötü çalışır.
 - **Veri sızıntısı (data leakage):** Test bilgisinin eğitime karışması; sonuçlar olduğundan iyi görünür.
 - **CNN (evrişimli ağ):** Yerel örüntüleri tarayan filtrelerle çalışan ağ; IQ dizisinde zamansal örüntüleri bulur.
+- **Logit:** Modelin softmax'tan önceki ham sınıf skorları; en büyüğü tahmindir.
+- **BatchNorm / Dropout:** Eğitimi kararlılaştıran ve ezberlemeyi azaltan katmanlar; ilki aktivasyonları normalize eder, ikincisi rastgele nöronları kapatır.
+- **Öğrenme eğrisi:** Epoch'a göre train/val kaybı grafiği. İkisi birbirinden ayrılıyorsa ezberleme var demektir.
 - **Karışıklık matrisi (confusion matrix):** Hangi sınıfın hangisiyle karıştığını gösteren tablo.
 - **Taban çizgisi (baseline):** Kıyas için kullanılan basit model.
 - **Domain gap:** Sentetik veri ile gerçek veri arasındaki fark yüzünden performansın düşmesi.

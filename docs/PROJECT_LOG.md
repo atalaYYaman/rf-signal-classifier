@@ -50,3 +50,20 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 - Kanal bozulmaları
 - Ders 4: ilk model (küçük CNN), eğitim döngüsü, SNR'a göre doğruluk eğrisi
 - Uzak repo kararı
+
+### 2026-10-10 (devam 3) — Ders 4: ilk model
+**Ne yaptık**
+- `src/model.py` (4 bloklu 1D CNN, 104 bin parametre), `src/train.py` (eğitim, değerlendirme, grafik). 15 epoch, batch 128, Adam + kosinüs LR, 15000 train örneği, CPU, ~18,5 dk. Çıktılar: `experiments/04_run1.*`.
+- **Sonuç:** test doğruluk 0,898 (val 0,903). SNR'a göre: ≥0 dB ~%99+, −5…0 dB %88, −10…−5 dB %54.
+- Karışıklık (SNR<0): BPSK/QPSK/16-QAM birbirine, OFDM→noise, FM→ton/noise/FSK.
+- İkinci koşu birincinin kayıplarını üçüncü ondalığa kadar tekrarladı: tohumlama çalışıyor.
+
+**Ne öğrendik**
+- Tek bir doğruluk sayısı yanıltıcı; model yüksek SNR'da kusursuz, tüm zayıflık düşük SNR'da.
+- 10 sınıf yüksek SNR'da çok kolay; modelleri ayırt etmek için zorluk gerekecek.
+- Süreç: uzun işleri log dosyasına yazdır, `tail` ardında çalıştırma; çalışan süreci ilerleme görünmüyor diye öldürme.
+
+**Açık kalanlar**
+- Kademe (b): özellik + random forest (ders 5 önerisi)
+- CNN iyileştirme (uzun eğitim / büyük model) — denenmedi
+- Kanal bozulmaları, `sigs.js` doğrulaması, uzak repo kararı (şimdilik yerel)

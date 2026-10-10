@@ -9,10 +9,11 @@ Durum: ☐ başlamadı · ◐ sürüyor · ☑ bitti
 - ☐ Sinyal şemasının (Artifact) sınıf listesini projeye aktarma → `docs/SIGNAL_CLASSES.md`
 
 ## Aşama 1 — Veri
-- ☐ IQ nedir, sinyal nasıl temsil edilir (öğrenme oturumu)
-- ☐ Sentetik üretici: `sigs.js`'ten Python'a port, 8–10 sinyalle başla (D-005), JS ile spektrum doğrulaması
-- ☐ Gürültü (SNR) ve basit kanal bozulmaları
-- ☐ Veri seti sınıfı, train/val/test ayrımı
+- ☑ IQ nedir, sinyal nasıl temsil edilir (ders 1: `src/iq_intro.py`)
+- ☑ Gürültü ve SNR (ders 2: `src/snr_intro.py`)
+- ◐ Sentetik üretici: 10 sınıf Python'da yazıldı (`src/signals.py`); `sigs.js` ile spektrum doğrulaması açık
+- ◐ Gürültü (SNR) ☑ · kanal bozulmaları (frekans kayması, çok yollu) ☐
+- ☑ Veri seti sınıfı, sızıntısız train/val/test ayrımı (`src/dataset.py`, `src/dataset_check.py`)
 
 ## Aşama 2 — İlk model
 - ☐ Kademe (a): şemanın kural tabanlı ağacı (eşik kalibrasyonu)

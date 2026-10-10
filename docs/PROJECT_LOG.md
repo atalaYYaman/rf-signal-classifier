@@ -31,3 +31,22 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 - `git init` (kullanıcı onayı bekliyor)
 - Sinyal sınıf listesini `docs/SIGNAL_CLASSES.md`'ye aktarma
 - Aşama 1: IQ'yu öğrenme oturumu, sonra Python üretici portu
+
+### 2026-10-10 (devam 2) — Dersler 1–3: IQ, SNR, veri seti
+**Ne yaptık**
+- `git init`, 3 commit. Uzak repo henüz açılmadı (kullanıcı kararı bekliyor; `gh` oturumu mevcut).
+- Ders 1 (`src/iq_intro.py`): ton, AM, QPSK; IQ düzlemi / zarf / spektrum.
+- Ders 2 (`src/snr_intro.py`): SNR düşerken takımyıldız ve spektrum; QPSK SER ölçümü kuramla örtüştü (10 örnek ortalaması ≈ +10 dB işleme kazancı).
+- Ders 3: `src/signals.py` (10 sınıf üretici), `src/dataset.py` (sızıntısız split), `src/dataset_check.py` (kontroller + galeri). D-006 yazıldı.
+- Kontroller: şekiller `(M,2,1024)`, güç = 1,0000, sınıf dengeli, train/val/test arası ortak örnek = 0, aynı tohum = aynı veri. 7000 örnek ~7 sn'de üretiliyor.
+
+**Ne öğrendik**
+- Takımyıldız 5 dB civarında karışırken spektrumda "dijital sinyal var" bilgisi 0 dB'ye kadar kalıyor.
+- OFDM, 0 dB'de gürültüden spektrumda neredeyse ayırt edilemiyor (güç geniş banda yayılıyor); düşük SNR'da en zor sınıf olması bekleniyor.
+- BPSK/QPSK/QAM IQ düzleminde net noktalar yerine halka gibi görünüyor: aşırı örnekleme + RRC süzgeci; noktalar yalnızca sembol anlarında oluşur.
+
+**Açık kalanlar**
+- `signals.py` ↔ `sigs.js` spektrum doğrulaması (D-005 maddesi, D-006 sapma notu)
+- Kanal bozulmaları
+- Ders 4: ilk model (küçük CNN), eğitim döngüsü, SNR'a göre doğruluk eğrisi
+- Uzak repo kararı

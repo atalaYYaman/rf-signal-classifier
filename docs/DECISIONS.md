@@ -36,3 +36,13 @@ Format: **Karar → Gerekçe → Ne zaman yeniden bakılır**
 - **Gerekçe:** Elle tasarlanmış uzman bilgisiyle öğrenilen çözümü ölçerek kıyaslamak hem öğretici hem savunulabilir; hazır etiket ve üreticiler işi azaltır.
 - **Riskler:** Döngüsellik (aynı üreticiyle test), kalibre olmayan eşikler, idealize JS üretici, 62 sınıfın bir anda zorluğu. Gerçek kayda erken bakış D-004 ile zorunlu.
 - **Yeniden bak:** Kademe (c), kademe (b)'den anlamlı fark üretmezse veya port doğrulanamazsa.
+
+## D-006 — Veri konvansiyonları (2026-10-10)
+- **Karar:**
+  1. **Blok uzunluğu N = 1024** karmaşık örnek; model girdisi `(2, 1024)` tensör (kanal 0 = I, kanal 1 = Q).
+  2. **SNR = örnek başına** sinyal gücü / gürültü gücü (şemadaki bant içi SNR, F1, değildir; bant genişliği oranı kadar fark vardır). Eğitimde **uniform [−10, +20] dB**.
+  3. Sinyal birim güçle üretilir; gürültü eklenir; sonra blok **yeniden birim güce** normalize edilir. Mutlak seviye bir ipucu olamaz. "noise" sınıfı yalnızca birim güçlü gürültüdür.
+  4. **Sızıntısız ayrım:** her örnek `default_rng([BASE_SEED, split, sınıf, indeks])` ile üretilir; split numarası tohumun parçasıdır. Aynı veri her çalıştırmada aynıdır.
+  5. Başlangıç 10 sınıf: noise, tone, am, fm, bpsk, qpsk, qam16, fsk2, ofdm, radar.
+- **Sapma notu (D-005'ten):** `src/signals.py` `sigs.js`'in birebir portu **değildir**; şemanın sinyal tanımlarına bakılarak yeniden yazıldı (RRC süzgeçli doğrusal modülasyonlar, rastgele parametreler). Python ↔ JS spektrum doğrulaması **hâlâ açık iş** (ROADMAP).
+- **Bilinen sınırlar:** Kanal bozulması yok (çok yollu yayılma, frekans kayması, IQ dengesizliği); parametre aralıkları (sembol hızı, sapma vb.) varsayımdır, şemadaki gerçek aralıklarla karşılaştırılmadı.

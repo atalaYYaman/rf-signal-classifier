@@ -12,12 +12,17 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **İşleme kazancı:** Birçok örneği birleştirerek (ortalama, FFT) SNR'ı yapay olarak yükseltmek; N örnek ≈ +10·log10(N) dB. Ton gibi dar sinyaller bundan en çok yararlanır.
 - **Sembol hata oranı (SER):** Alıcının bir sembolü yanlış kestiği oran; SNR düştükçe artar. QPSK'da rastgele tahminde %75'tir.
 - **Spektrum / waterfall:** Sinyalin frekansa göre gücü / bunun zamanla akan görüntüsü.
+- **Blok:** Modele tek seferde verilen sabit uzunluktaki IQ parçası (bizde 1024 örnek).
+- **Normalizasyon (birim güç):** Bloğu ortalama gücü 1 olacak şekilde ölçeklemek; model mutlak sinyal seviyesine bakıp hile yapamaz.
+- **Pulse shaping / RRC süzgeci:** Sembol geçişlerini yumuşatıp spektrumu dar tutan süzgeç; gerçek vericilerin yaptığı şey.
+- **Taşıyıcı ofseti:** Sinyalin merkez frekansının beklenenden kayması; modelin buna dayanıklı olması istenir.
 - **Takımyıldız (constellation):** IQ düzleminde sembollerin kümelendiği noktalar; modülasyonu ayırt etmede güçlü ipucu.
 
 ## Derin öğrenme temelleri
 - **Model:** Girdiyi (IQ) alıp çıktı (sınıf tahmini) üreten parametreli fonksiyon.
 - **Parametre / ağırlık:** Modelin eğitimle öğrendiği sayılar.
 - **Tensör:** PyTorch'un çok boyutlu sayı dizisi; NumPy dizisine benzer ama GPU'da çalışabilir.
+- **Dataset / DataLoader (PyTorch):** Dataset örnekleri tutar ve verir; DataLoader bunları batch'ler hâlinde, karıştırarak modele servis eder.
 - **Etiket (label):** Doğru cevap; örn. "QPSK".
 - **Sınıflandırma:** Girdiyi önceden tanımlı sınıflardan birine atama problemi.
 - **Kayıp (loss):** Modelin ne kadar yanıldığının sayısı; eğitim bunu küçültür.

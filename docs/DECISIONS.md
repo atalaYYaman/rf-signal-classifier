@@ -68,3 +68,16 @@ Format: **Karar → Gerekçe → Ne zaman yeniden bakılır**
 - Beklenti "CNN bozulmaya daha dayanıklıdır" **desteklenmedi**: bozuk veride RF ~2,4 puan önde (CNN düşük SNR'da da geride: −10…−5 dB 0,45 vs 0,55).
 - İki model de temiz eğitimle bozuk veride ~15 puan kaybediyor; bozulmayı eğitim setine katmak kaybı büyük ölçüde geri alıyor (**veri çeşitlendirme** ucuz ve etkili).
 - **Sınırlar:** tek tohum; CNN ayarlanmadı (15 epoch, 104 bin parametre, 15000 örnek), RF'nin özellikleri bu sınıflar bilinerek seçildi. CNN'in yetersiz kapasite/eğitimden mi yoksa yapısal olarak mı geride kaldığı **bilinmiyor**; denenecek (daha çok veri/epoch/kapasite).
+
+### D-005 — Güncelleme 3 (2026-10-11): CNN'e adil şans (bozuk veri, aynı test seti)
+| Koşu | Test doğruluk | Not |
+|---|---|---|
+| CNN baseline (3 tohum) | 0,834 / 0,839 / 0,842 | ort 0,838 ± 0,003 (gürültü tabanı) |
+| CNN 40 epoch | 0,843 | train loss 0,115, val loss 0,466: ezberleme; tohum aralığında |
+| CNN kapasite ×4 (409 bin parametre) | 0,863 | +2,5 puan |
+| CNN veri ×4 (60.000 örnek) | **0,877** | +3,9 puan |
+| RF (15k örnek, 3 tohum) | 0,860 ± 0,003 | |
+| RF veri ×4 (3 tohum) | 0,875 ± 0,000 | +1,5 puan |
+- **Sonuç:** CNN'in geride kalması büyük ölçüde **veri/kapasite eksikliğiydi**; 4× veriyle CNN 0,877, RF 0,875: **başa baş**. Ders 6'daki "RF önde" sonucu eğitim bütçesinin ürünüydü.
+- Daha çok epoch işe yaramadı (ezberleme). Veri ve kapasite işe yaradı. CNN veri artışından RF'ten daha çok yararlandı (+3,9 vs +1,5); bu eğilim sürerse fark CNN lehine açılabilir, ama **birleşik (veri ×4 + kapasite ×4) koşu denenmedi**, ekstrapolasyon varsayımdır.
+- **Sınırlar:** bu deneyde tek veri artışı basamağı (×4); test seti paylaşıldığı için ±0,65 puanlık örnekleme belirsizliği iki modelde de ortak; düşük SNR aralığında RF'in 4× veri sonucu SNR bazında hesaplanmadı. Süreler (CNN 4,5–17 dk) ölçüm tutarsızlığı nedeniyle güvenilmez.

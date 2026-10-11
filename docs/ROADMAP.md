@@ -25,7 +25,8 @@ Durum: ☐ başlamadı · ◐ sürüyor · ☑ bitti
 ## Aşama 3 — Büyütme
 - ☑ Kanal bozulmalarıyla RF ve CNN kıyası (2×2: eğitim × test; `src/robustness.py`)
 - ☐ Daha çok sınıf (8PSK, 64QAM, OOK, GFSK…) ile kıyası tekrarla
-- ☐ CNN'in bozuk veride geride kalmasının nedeni: daha çok veri / epoch / kapasite denemesi
+- ☑ CNN'in bozuk veride geride kalmasının nedeni: veri/kapasite eksikliği (veri ×4 ile 0,877 vs RF 0,875, ders 7)
+- ☐ CNN: veri ×4 + kapasite ×4 birleşik koşu (denenmedi)
 - ☐ Daha fazla sınıf, daha zor koşullar
 - ☐ Model alternatifleri (ResNet tipi, dikkat/Transformer vb.) ve kıyas
 - ☐ Büyük eğitimler için A2000/Colab geçişi

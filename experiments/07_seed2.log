@@ -1,0 +1,26 @@
+cihaz: cpu
+veri üretildi: 10 sn | train 15000 val 2000 test 3000
+parametre sayısı: 104234
+epoch  1/15  train_loss 1.379  val_loss 0.996  val_acc 0.623  (29 sn)
+epoch  2/15  train_loss 0.898  val_loss 0.995  val_acc 0.613  (46 sn)
+epoch  3/15  train_loss 0.779  val_loss 0.832  val_acc 0.700  (65 sn)
+epoch  4/15  train_loss 0.704  val_loss 0.771  val_acc 0.744  (83 sn)
+epoch  5/15  train_loss 0.655  val_loss 0.671  val_acc 0.760  (100 sn)
+epoch  6/15  train_loss 0.585  val_loss 0.540  val_acc 0.817  (118 sn)
+epoch  7/15  train_loss 0.548  val_loss 0.580  val_acc 0.796  (135 sn)
+epoch  8/15  train_loss 0.531  val_loss 0.545  val_acc 0.806  (152 sn)
+epoch  9/15  train_loss 0.477  val_loss 0.537  val_acc 0.811  (169 sn)
+epoch 10/15  train_loss 0.467  val_loss 0.487  val_acc 0.823  (187 sn)
+epoch 11/15  train_loss 0.438  val_loss 0.519  val_acc 0.822  (204 sn)
+epoch 12/15  train_loss 0.418  val_loss 0.454  val_acc 0.844  (221 sn)
+epoch 13/15  train_loss 0.392  val_loss 0.447  val_acc 0.845  (238 sn)
+epoch 14/15  train_loss 0.381  val_loss 0.445  val_acc 0.844  (255 sn)
+epoch 15/15  train_loss 0.378  val_loss 0.442  val_acc 0.844  (272 sn)
+TEST doğruluk: 0.842
+  SNR [-10,-5) dB: doğruluk 0.479 (n=501)
+  SNR [-5,+0) dB: doğruluk 0.809 (n=509)
+  SNR [+0,+5) dB: doğruluk 0.912 (n=489)
+  SNR [+5,+10) dB: doğruluk 0.957 (n=488)
+  SNR [+10,+15) dB: doğruluk 0.937 (n=520)
+  SNR [+15,+20) dB: doğruluk 0.959 (n=493)
+yazıldı: C:\Atalay-Projects\DeepLearningProjects\experiments\07_seed2.png

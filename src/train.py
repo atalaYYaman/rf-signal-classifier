@@ -24,9 +24,12 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--channel", type=float, default=0.0, help="kanal bozulma şiddeti 0..1 (D-007)")
 ap.add_argument("--tag", default="04_run1", help="çıktı dosyalarının öneki")
 ap.add_argument("--epochs", type=int, default=15)
+ap.add_argument("--seed", type=int, default=0, help="model başlangıcı ve karıştırma tohumu (veri tohumu sabit)")
+ap.add_argument("--n_train", type=int, default=1500, help="sınıf başına eğitim örneği")
+ap.add_argument("--width", type=int, default=32, help="CNN taban kanal sayısı")
 args = ap.parse_args()
 
-CFG = dict(seed=0, n_train=1500, n_val=200, n_test=300, batch=128, epochs=args.epochs, lr=2e-3, width=32,
+CFG = dict(seed=args.seed, n_train=args.n_train, n_val=200, n_test=300, batch=128, epochs=args.epochs, lr=2e-3, width=args.width,
            channel=args.channel, tag=args.tag)
 OUT = Path(__file__).resolve().parent.parent / "experiments"
 torch.manual_seed(CFG["seed"])
@@ -129,7 +132,8 @@ for a in (ax, ax2):
     a.set_xticks(range(len(CLASSES))); a.set_xticklabels(CLASSES, rotation=60, fontsize=8)
     a.set_yticks(range(len(CLASSES))); a.set_yticklabels(CLASSES, fontsize=8)
     a.set_xlabel("tahmin"); a.set_ylabel("gerçek")
-fig.suptitle(f"Ders 4: ilk CNN ({n_params:,} parametre, {CFG['epochs']} epoch, {device}) | test doğruluk {ta:.3f}", fontsize=14)
+fig.suptitle(f"{CFG['tag']} | kanal bozulması={CFG['channel']} | seed={CFG['seed']} | {CFG['n_train'] * len(CLASSES):,} örnek, "
+             f"{n_params:,} parametre, {CFG['epochs']} epoch, {device} | test doğruluk {ta:.3f}", fontsize=13)
 fig.tight_layout()
 fig.savefig(OUT / f"{CFG['tag']}.png", dpi=100)
 

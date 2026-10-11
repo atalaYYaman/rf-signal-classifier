@@ -98,3 +98,17 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 
 **Açık kalanlar**
 - Daha çok sınıf; CNN kapasite/veri/epoch denemesi; çoklu tohum; kademe (a) kural ağacı; `sigs.js` doğrulaması; uzak repo (yerel).
+
+### 2026-10-11 (devam 2) — Ders 7: CNN'e adil şans
+**Ne yaptık**
+- Kullanıcının sorusu üzerine `06_cnn_ch1.png` ile `04_run1.png` karşılaştırıldı: farklı dosyalar (MD5, metrik farklı); karışıklığın nedeni `train.py` başlığının "Ders 4" olarak sabit yazılmasıydı. Başlık etiket/kanal/tohum/örnek sayısına göre üretilecek şekilde düzeltildi. 06 görselinin başlığı eski kaldı.
+- `train.py`'ye `--seed --n_train --width` eklendi. Koşular (bozuk veri): 2 ek tohum, 40 epoch, veri ×4, kapasite ×4 (`experiments/07_*`), RF için veri ×4 (`src/rf_scale.py`).
+- Sonuçlar D-005 güncelleme 3'te; özet `experiments/07_summary.png`.
+
+**Ne öğrendik**
+- Ders 6'daki "RF bozuk veride önde" sonucu CNN'in az veriyle eğitilmesinden kaynaklıydı. Veri ×4 ile başa baş.
+- Tek koşudaki 0,5 puanlık farklar (tohum aralığı ±0,3) kanıt değil; 40 epoch'un "kazancı" gürültü içinde.
+- Daha çok epoch ≠ daha iyi: ezberleme (train 0,115 / val 0,466).
+
+**Açık kalanlar**
+- Birleşik koşu (veri ×4 + kapasite ×4), daha çok sınıf, kademe (a), `sigs.js` doğrulaması, uzak repo (yerel).

@@ -1,0 +1,16 @@
+== 07_seed1 17:04:26
+epoch 15/15  train_loss 0.390  val_loss 0.441  val_acc 0.839  (274 sn)
+TEST doğruluk: 0.839
+== 07_seed2 17:09:05
+epoch 15/15  train_loss 0.378  val_loss 0.442  val_acc 0.844  (272 sn)
+TEST doğruluk: 0.842
+== 07_ep40 17:13:42
+epoch 40/40  train_loss 0.115  val_loss 0.466  val_acc 0.847  (703 sn)
+TEST doğruluk: 0.843
+== 07_data4x 17:25:30
+epoch 15/15  train_loss 0.273  val_loss 0.315  val_acc 0.883  (1027 sn)
+TEST doğruluk: 0.877
+== 07_w64 17:42:41
+epoch 15/15  train_loss 0.227  val_loss 0.376  val_acc 0.864  (721 sn)
+TEST doğruluk: 0.863
+== bitti 17:54:49

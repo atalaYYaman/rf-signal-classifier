@@ -46,6 +46,9 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **Çok yollu yayılma (multipath):** Sinyalin yansıyarak alıcıya gecikmeli kopyalarla gelmesi; spektrumda frekansa bağlı sönme yaratır.
 - **IQ dengesizliği:** Alıcının I ve Q kollarının kazanç/faz uyuşmazlığı; spektrumda ayna (görüntü) çizgisi doğurur.
 - **Faz gürültüsü:** Osilatörün fazının rastgele kayması; takımyıldızı döndürüp bulandırır.
+- **Tohum (seed):** Rastgele sayı üretecinin başlangıcı; aynı tohum aynı sonucu verir. Farklı tohumlarla aynı deneyi tekrarlamak sonucun ne kadar oynadığını (gürültü tabanını) gösterir.
+- **Ezberleme belirtisi:** Eğitim kaybı düşmeye devam ederken doğrulama kaybının yükselmesi/durması (40 epoch koşusunda: 0,115 vs 0,466).
+- **Kapasite:** Modelin öğrenebileceği karmaşıklık; genelde parametre sayısıyla artar, ama veri yoksa ezbere yol açar.
 - **Taban çizgisi (baseline):** Kıyas için kullanılan basit model.
 - **Domain gap:** Sentetik veri ile gerçek veri arasındaki fark yüzünden performansın düşmesi.
 

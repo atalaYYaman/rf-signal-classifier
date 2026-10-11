@@ -51,4 +51,20 @@ Format: **Karar → Gerekçe → Ne zaman yeniden bakılır**
 - Aynı veri, aynı test seti (3000 örnek, 10 sınıf, SNR −10…+20 dB): **RF + 20 özellik %88,8** (~30 sn) · **CNN %89,8** (~19 dk, 104 bin parametre).
 - Fark ~1 puan ve tek koşu; yalnızca 0…+10 dB aralığında CNN'in önde olması muhtemel (RF %96,5/%98,8 vs CNN %99,0/%99,8). Diğer aralıklarda fark ölçüm belirsizliği içinde (her aralıkta n≈500, ±2 puan).
 - **Yorum sınırı:** Özellikleri aynı üreticinin sınıflarını bilerek seçtik (döngüsellik, D-005 riski). Görev yüksek SNR'da kolay. Bu sonuç "derin öğrenme gereksiz" **demek değildir**; "bu kolay veride kazancı küçük" demektir.
-- **Sonraki adım:** veriyi zorlaştırıp (kanal bozulmaları, daha çok sınıf) iki yaklaşımı yeniden kıyasla. D-005'in "yeniden bak" koşulu (c ile b arasında anlamlı fark yoksa) şu an kısmen tetikleniyor; karar zorlaştırılmış veriden sonra verilecek.
+- **Sonraki adım:** veriyi zorlaştırıp (kanal bozulmaları, daha çok sınıf) iki yaklaşımı yeniden kıyasla. → Bozulmalar ders 6'da yapıldı (aşağıda D-007 ve D-005 ders 6 güncellemesi). D-005'in "yeniden bak" koşulu (c ile b arasında anlamlı fark yoksa) şu an kısmen tetikleniyor; karar zorlaştırılmış veriden sonra verilecek.
+
+## D-007 — Kanal bozulma modeli (2026-10-11)
+- **Karar:** `signals.apply_channel(x, rng, severity)` sinyale, gürültüden **önce**: çok yollu yayılma (0–3 yansıma, 3–12 dB zayıf, 1–5 örnek gecikme) → örnekleme hızı ofseti (±%2) + kesirli gecikme → taşıyıcı frekans kayması (±0,03) → faz gürültüsü (rastgele yürüyüş, σ ≤ 0,01 rad/örnek) → IQ dengesizliği (±1 dB, ±5°) uygular. `severity` 0..1 ölçeği; `channel=0` eski veriyi **birebir** üretir (regresyon parmak izi `experiments/.clean_fingerprint`, `src/channel_demo.py`).
+- **Deney protokolü:** her model hem temiz hem bozuk veriyle eğitilir, ikisinde de test edilir (2×2). Test seti aynı tohum/indeksle üretilir.
+- **Sınır:** Bozulma aralıkları varsayımdır; gerçek kayıtlara kalibre edilmedi. Sınıfların taşıyıcıları zaten rastgele olduğundan frekans kayması etkisi sınırlı.
+
+### D-005 — Güncelleme 2 (2026-10-11): bozuk kanalda kademe (b) vs (c)
+| Eğitim → Test | RF | CNN |
+|---|---|---|
+| temiz → temiz | 0,888 | 0,898 |
+| temiz → bozuk | 0,730 | 0,757 |
+| bozuk → temiz | 0,878 | 0,861 |
+| bozuk → bozuk | **0,858** | 0,834 |
+- Beklenti "CNN bozulmaya daha dayanıklıdır" **desteklenmedi**: bozuk veride RF ~2,4 puan önde (CNN düşük SNR'da da geride: −10…−5 dB 0,45 vs 0,55).
+- İki model de temiz eğitimle bozuk veride ~15 puan kaybediyor; bozulmayı eğitim setine katmak kaybı büyük ölçüde geri alıyor (**veri çeşitlendirme** ucuz ve etkili).
+- **Sınırlar:** tek tohum; CNN ayarlanmadı (15 epoch, 104 bin parametre, 15000 örnek), RF'nin özellikleri bu sınıflar bilinerek seçildi. CNN'in yetersiz kapasite/eğitimden mi yoksa yapısal olarak mı geride kaldığı **bilinmiyor**; denenecek (daha çok veri/epoch/kapasite).

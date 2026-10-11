@@ -12,7 +12,7 @@ Durum: ☐ başlamadı · ◐ sürüyor · ☑ bitti
 - ☑ IQ nedir, sinyal nasıl temsil edilir (ders 1: `src/iq_intro.py`)
 - ☑ Gürültü ve SNR (ders 2: `src/snr_intro.py`)
 - ◐ Sentetik üretici: 10 sınıf Python'da yazıldı (`src/signals.py`); `sigs.js` ile spektrum doğrulaması açık
-- ◐ Gürültü (SNR) ☑ · kanal bozulmaları (frekans kayması, çok yollu) ☐
+- ☑ Gürültü (SNR) ve kanal bozulmaları (D-007, `signals.apply_channel`)
 - ☑ Veri seti sınıfı, sızıntısız train/val/test ayrımı (`src/dataset.py`, `src/dataset_check.py`)
 
 ## Aşama 2 — İlk model
@@ -23,7 +23,9 @@ Durum: ☐ başlamadı · ◐ sürüyor · ☑ bitti
 - ☑ Karışıklık matrisi, SNR'a göre doğruluk eğrisi
 
 ## Aşama 3 — Büyütme
-- ☐ **Önce:** veriyi zorlaştır (kanal bozulmaları: frekans kayması, çok yollu, IQ dengesizliği; daha çok sınıf: 8PSK, 64QAM, OOK, GFSK…) ve RF ile CNN'i yeniden kıyasla
+- ☑ Kanal bozulmalarıyla RF ve CNN kıyası (2×2: eğitim × test; `src/robustness.py`)
+- ☐ Daha çok sınıf (8PSK, 64QAM, OOK, GFSK…) ile kıyası tekrarla
+- ☐ CNN'in bozuk veride geride kalmasının nedeni: daha çok veri / epoch / kapasite denemesi
 - ☐ Daha fazla sınıf, daha zor koşullar
 - ☐ Model alternatifleri (ResNet tipi, dikkat/Transformer vb.) ve kıyas
 - ☐ Büyük eğitimler için A2000/Colab geçişi

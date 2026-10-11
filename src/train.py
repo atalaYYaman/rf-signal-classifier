@@ -19,7 +19,15 @@ from dataset import SignalDataset
 from model import SmallCNN
 from signals import CLASSES
 
-CFG = dict(seed=0, n_train=1500, n_val=200, n_test=300, batch=128, epochs=15, lr=2e-3, width=32, tag="04_run1")
+import argparse
+ap = argparse.ArgumentParser()
+ap.add_argument("--channel", type=float, default=0.0, help="kanal bozulma şiddeti 0..1 (D-007)")
+ap.add_argument("--tag", default="04_run1", help="çıktı dosyalarının öneki")
+ap.add_argument("--epochs", type=int, default=15)
+args = ap.parse_args()
+
+CFG = dict(seed=0, n_train=1500, n_val=200, n_test=300, batch=128, epochs=args.epochs, lr=2e-3, width=32,
+           channel=args.channel, tag=args.tag)
 OUT = Path(__file__).resolve().parent.parent / "experiments"
 torch.manual_seed(CFG["seed"])
 np.random.seed(CFG["seed"])
@@ -27,9 +35,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")   # D-002:
 print("cihaz:", device)
 
 t0 = time.time()
-train_ds = SignalDataset("train", CFG["n_train"])
-val_ds = SignalDataset("val", CFG["n_val"])
-test_ds = SignalDataset("test", CFG["n_test"])
+train_ds = SignalDataset("train", CFG["n_train"], channel=CFG["channel"])
+val_ds = SignalDataset("val", CFG["n_val"], channel=CFG["channel"])
+test_ds = SignalDataset("test", CFG["n_test"], channel=CFG["channel"])
 print(f"veri üretildi: {time.time() - t0:.0f} sn | train {len(train_ds)} val {len(val_ds)} test {len(test_ds)}")
 
 g = torch.Generator().manual_seed(CFG["seed"])

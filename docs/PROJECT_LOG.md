@@ -76,7 +76,7 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 - RF karışıklığı (SNR<0): BPSK/QPSK/QAM karışımı, OFDM→noise (CNN ile aynı), ek olarak ton↔AM.
 
 **Ne öğrendik**
-- Bu kolay sentetik görevde CNN'in ~600× eğitim maliyeti küçük kazanç getiriyor; el yapımı özellikler güçlü bir taban çizgisi.
+- Bu kolay sentetik görevde CNN'in ~9–37× eğitim maliyeti (süre ölçümü tutarsız, aşağıya bak) küçük kazanç getiriyor; el yapımı özellikler güçlü bir taban çizgisi.
 - Kümülantların sıfır önemi: büyük olasılıkla taşıyıcı ofseti (C20/C40 faz dönmesiyle sönüyor) ve süzgeçli aşırı örnekleme; **test edilmedi**, varsayım.
 - Tek koşuda ±1 puanlık farklara karar vermemek gerek (n=3000; aralık başına n≈500 → ±2 puan).
 
@@ -84,3 +84,17 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 - Veriyi zorlaştır (kanal bozulmaları, daha çok sınıf) ve kıyası tekrarla (ders 6 önerisi)
 - Kademe (a): şemanın kural ağacı
 - CNN iyileştirme, `sigs.js` doğrulaması, uzak repo (yerel kalıyor)
+
+### 2026-10-11 (devam) — Ders 6: kanal bozulmaları
+**Ne yaptık**
+- `signals.apply_channel` (5 bozulma, D-007), `dataset`/`train.py` `--channel/--tag` parametreleri, regresyon parmak izi (`channel=0` eski veriyle birebir aynı: GEÇTİ). `src/channel_demo.py`, `src/robustness.py`.
+- 2×2 deney (eğitim temiz/bozuk × test temiz/bozuk), RF ve CNN. Sonuç tablosu D-005 güncelleme 2'de.
+- **Bulgu:** temiz eğitimli modeller bozuk veride ~15 puan düşüyor (RF 0,888→0,730; CNN 0,898→0,757), düşüş tüm SNR'lara yayılı. Bozuk veride eğitim kaybı büyük ölçüde kapatıyor; bozuk→bozuk RF 0,858, CNN 0,834.
+
+**Ne öğrendik**
+- "Derin öğrenme bozulmaya doğal olarak daha dayanıklı" beklentisi bu deneyde desteklenmedi; neden bilinmiyor (CNN yetersiz eğitilmiş olabilir, tek tohum).
+- **Süre ölçümü tutarsız:** aynı CNN eğitimi 1108 sn (ders 4) ve 264 sn (ders 6) sürdü; nedeni bilinmiyor (arka plan yükü/güç modu şüpheli, doğrulanmadı). Süre karşılaştırmaları güvenilmez; ders 5'teki "~19 dk" iddiasını bu çerçevede oku.
+- Hata düzeltmesi: ders 5 günlüğünde yazdığım "~600×" oranı yanlıştı, doğru aralık ~9–37×.
+
+**Açık kalanlar**
+- Daha çok sınıf; CNN kapasite/veri/epoch denemesi; çoklu tohum; kademe (a) kural ağacı; `sigs.js` doğrulaması; uzak repo (yerel).

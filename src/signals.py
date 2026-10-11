@@ -129,9 +129,40 @@ GENERATORS = {
 }
 
 
-def make_sample(name, snr_db, rng, n=N):
-    """Tek bir IQ bloğu üretir: sinyal (birim güç) + karmaşık Gauss gürültü, sonra birim güce normalize."""
+def apply_channel(x, rng, severity):
+    """Alıcıya varmadan önce sinyale uygulanan kanal/donanım bozulmaları (D-007).
+
+    severity 0..1 aralıkların ölçeğidir. Sıra: çok yollu -> örnekleme/zamanlama kayması -> frekans kayması
+    -> faz gürültüsü -> IQ dengesizliği. Gürültü (AWGN) bundan sonra eklenir.
+    """
+    n = len(x)
+    k = np.arange(n)
+    # 1) çok yollu yayılma: doğrudan yol + 0-3 gecikmiş yansıma (3-12 dB zayıf, 1-5 örnek gecikme)
+    h = np.zeros(6, dtype=complex)
+    h[0] = 1.0
+    for _ in range(int(rng.integers(0, 4))):
+        h[int(rng.integers(1, 6))] += severity * 10 ** (-rng.uniform(3, 12) / 20) * np.exp(1j * rng.uniform(0, 2 * np.pi))
+    x = np.convolve(x, h / np.sqrt(np.sum(np.abs(h) ** 2)))[:n]
+    # 2) örnekleme hızı ofseti (±%2) ve kesirli gecikme: doğrusal aradeğerleme
+    pos = np.clip(k * (1 + severity * rng.uniform(-0.02, 0.02)) + severity * rng.uniform(0, 1), 0, n - 1)
+    x = np.interp(pos, k, x.real) + 1j * np.interp(pos, k, x.imag)
+    # 3) taşıyıcı frekans kayması (±0.03 döngü/örnek)
+    x = x * np.exp(2j * np.pi * severity * rng.uniform(-0.03, 0.03) * k)
+    # 4) faz gürültüsü: rastgele yürüyüş, örnek başına σ ≤ 0.01 rad
+    x = x * np.exp(1j * np.cumsum(severity * rng.uniform(0, 0.01) * rng.standard_normal(n)))
+    # 5) IQ dengesizliği: kazanç ±1 dB, faz ±5°
+    g = 10 ** (severity * rng.uniform(-1, 1) / 20)
+    phi = np.deg2rad(severity * rng.uniform(-5, 5))
+    x = x.real + 1j * g * (x.imag * np.cos(phi) + x.real * np.sin(phi))
+    return _unit_power(x)
+
+
+def make_sample(name, snr_db, rng, n=N, channel=0.0):
+    """Tek bir IQ bloğu üretir: sinyal (birim güç) [+ kanal bozulmaları] + karmaşık Gauss gürültü,
+    sonra birim güce normalize. channel=0 ise bozulma yok ve eski veri birebir aynıdır."""
     s = GENERATORS[name](rng, n)
+    if channel > 0:
+        s = apply_channel(s, rng, channel)
     sigma2 = 10 ** (-snr_db / 10) if name != "noise" else 1.0
     noise = np.sqrt(sigma2 / 2) * (rng.standard_normal(n) + 1j * rng.standard_normal(n))
     return _unit_power(s + noise).astype(np.complex64)

@@ -41,6 +41,11 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **Özellik mühendisliği:** Sinyalden elle anlamlı sayılar (SFM, kurtosis…) çıkarma; derin öğrenme bunu ağın kendisine bırakır.
 - **Permütasyon önemi:** Bir özelliğin değerlerini karıştırınca doğruluğun ne kadar düştüğü; yüksek = model o özelliğe güveniyor. Birbirine benzeyen özellikler önemi böler.
 - **Ölçüm belirsizliği:** Sonlu test örneğinde doğruluğun ± oynaması; n=500'de yaklaşık ±2 puan. Bundan küçük farklar kanıt değildir.
+- **Veri çeşitlendirme (augmentation):** Eğitim verisine gerçek dünyadaki varyasyonları (bozulma, kayma, gürültü) katarak modeli dayanıklı yapmak.
+- **Dağılım kayması (distribution shift):** Test verisinin eğitim verisinden farklı koşulda olması; temiz→bozuk testi bunun deneyidir. Domain gap'in genel adı.
+- **Çok yollu yayılma (multipath):** Sinyalin yansıyarak alıcıya gecikmeli kopyalarla gelmesi; spektrumda frekansa bağlı sönme yaratır.
+- **IQ dengesizliği:** Alıcının I ve Q kollarının kazanç/faz uyuşmazlığı; spektrumda ayna (görüntü) çizgisi doğurur.
+- **Faz gürültüsü:** Osilatörün fazının rastgele kayması; takımyıldızı döndürüp bulandırır.
 - **Taban çizgisi (baseline):** Kıyas için kullanılan basit model.
 - **Domain gap:** Sentetik veri ile gerçek veri arasındaki fark yüzünden performansın düşmesi.
 

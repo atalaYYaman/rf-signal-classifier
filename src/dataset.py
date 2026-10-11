@@ -15,14 +15,14 @@ BASE_SEED = 20261010
 
 
 class SignalDataset(Dataset):
-    def __init__(self, split, n_per_class, classes=CLASSES, snr_range=SNR_RANGE, n=N):
+    def __init__(self, split, n_per_class, classes=CLASSES, snr_range=SNR_RANGE, n=N, channel=0.0):
         self.classes = list(classes)
         xs, ys, snrs = [], [], []
         for label, name in enumerate(self.classes):
             for i in range(n_per_class):
                 rng = np.random.default_rng([BASE_SEED, SPLIT_ID[split], label, i])
                 snr = rng.uniform(*snr_range)
-                xs.append(make_sample(name, snr, rng, n))
+                xs.append(make_sample(name, snr, rng, n, channel))
                 ys.append(label)
                 snrs.append(snr)
         x = np.stack(xs)                                           # (M, n) karmaşık

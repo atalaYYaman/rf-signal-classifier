@@ -46,3 +46,9 @@ Format: **Karar → Gerekçe → Ne zaman yeniden bakılır**
   5. Başlangıç 10 sınıf: noise, tone, am, fm, bpsk, qpsk, qam16, fsk2, ofdm, radar.
 - **Sapma notu (D-005'ten):** `src/signals.py` `sigs.js`'in birebir portu **değildir**; şemanın sinyal tanımlarına bakılarak yeniden yazıldı (RRC süzgeçli doğrusal modülasyonlar, rastgele parametreler). Python ↔ JS spektrum doğrulaması **hâlâ açık iş** (ROADMAP).
 - **Bilinen sınırlar:** Kanal bozulması yok (çok yollu yayılma, frekans kayması, IQ dengesizliği); parametre aralıkları (sembol hızı, sapma vb.) varsayımdır, şemadaki gerçek aralıklarla karşılaştırılmadı.
+
+### D-005 — Güncelleme (2026-10-11): kademe (b) vs (c) ilk sonuç
+- Aynı veri, aynı test seti (3000 örnek, 10 sınıf, SNR −10…+20 dB): **RF + 20 özellik %88,8** (~30 sn) · **CNN %89,8** (~19 dk, 104 bin parametre).
+- Fark ~1 puan ve tek koşu; yalnızca 0…+10 dB aralığında CNN'in önde olması muhtemel (RF %96,5/%98,8 vs CNN %99,0/%99,8). Diğer aralıklarda fark ölçüm belirsizliği içinde (her aralıkta n≈500, ±2 puan).
+- **Yorum sınırı:** Özellikleri aynı üreticinin sınıflarını bilerek seçtik (döngüsellik, D-005 riski). Görev yüksek SNR'da kolay. Bu sonuç "derin öğrenme gereksiz" **demek değildir**; "bu kolay veride kazancı küçük" demektir.
+- **Sonraki adım:** veriyi zorlaştırıp (kanal bozulmaları, daha çok sınıf) iki yaklaşımı yeniden kıyasla. D-005'in "yeniden bak" koşulu (c ile b arasında anlamlı fark yoksa) şu an kısmen tetikleniyor; karar zorlaştırılmış veriden sonra verilecek.

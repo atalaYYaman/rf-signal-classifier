@@ -1,0 +1,12 @@
+özellikler hazır: 17 sn | train (15000, 20) test (3000, 20)
+RF eğitildi: 20 sn
+RF val doğruluk 0.887 | TEST doğruluk 0.888 | CNN test 0.898
+SNR aralığı      RF     CNN
+[-10, -5) dB   0.547  0.535
+[ -5, +0) dB   0.845  0.878
+[ +0, +5) dB   0.965  0.990
+[ +5,+10) dB   0.988  0.998
+[+10,+15) dB   0.990  0.992
+[+15,+20) dB   0.994  0.998
+permütasyon önemi (val): pow2_db=0.119, csr=0.100, cyc_db=0.062, fi_std_smooth=0.034, fi_bimod=0.028, fi_std=0.027, fi_kurt=0.026, pmr_db=0.018
+yazıldı: C:\Atalay-Projects\DeepLearningProjects\experiments\05_rf.png

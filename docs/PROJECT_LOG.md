@@ -67,3 +67,20 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 - Kademe (b): özellik + random forest (ders 5 önerisi)
 - CNN iyileştirme (uzun eğitim / büyük model) — denenmedi
 - Kanal bozulmaları, `sigs.js` doğrulaması, uzak repo kararı (şimdilik yerel)
+
+### 2026-10-11 — Ders 5: özellik + random forest, CNN ile kıyas
+**Ne yaptık**
+- `src/features.py`: 20 özellik (şemadaki 12 F'ye karşılık: OBW, SFM, PMR/çizgi, CV_a, κ_a, anlık frekans, CSR, x²/x⁴ üs testi, siklik, CP korelasyonu, kümülant, darbe). `src/rf_baseline.py`: 300 ağaçlı RF, CNN ile aynı veri/test seti. Çıktılar `experiments/05_rf.*`.
+- **Sonuç:** RF test %88,8 (~30 sn) vs CNN %89,8 (~19 dk). SNR eğrileri çok yakın; CNN yalnızca 0…+10 dB'de belirgin önde.
+- Özellik önemi: x² üs testi, CSR, siklik (sembol hızı) en yüksek; kümülantlar (c20/c40/c42) ≈ 0.
+- RF karışıklığı (SNR<0): BPSK/QPSK/QAM karışımı, OFDM→noise (CNN ile aynı), ek olarak ton↔AM.
+
+**Ne öğrendik**
+- Bu kolay sentetik görevde CNN'in ~600× eğitim maliyeti küçük kazanç getiriyor; el yapımı özellikler güçlü bir taban çizgisi.
+- Kümülantların sıfır önemi: büyük olasılıkla taşıyıcı ofseti (C20/C40 faz dönmesiyle sönüyor) ve süzgeçli aşırı örnekleme; **test edilmedi**, varsayım.
+- Tek koşuda ±1 puanlık farklara karar vermemek gerek (n=3000; aralık başına n≈500 → ±2 puan).
+
+**Açık kalanlar**
+- Veriyi zorlaştır (kanal bozulmaları, daha çok sınıf) ve kıyası tekrarla (ders 6 önerisi)
+- Kademe (a): şemanın kural ağacı
+- CNN iyileştirme, `sigs.js` doğrulaması, uzak repo (yerel kalıyor)

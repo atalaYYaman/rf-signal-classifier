@@ -37,6 +37,10 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **BatchNorm / Dropout:** Eğitimi kararlılaştıran ve ezberlemeyi azaltan katmanlar; ilki aktivasyonları normalize eder, ikincisi rastgele nöronları kapatır.
 - **Öğrenme eğrisi:** Epoch'a göre train/val kaybı grafiği. İkisi birbirinden ayrılıyorsa ezberleme var demektir.
 - **Karışıklık matrisi (confusion matrix):** Hangi sınıfın hangisiyle karıştığını gösteren tablo.
+- **Random forest:** Çok sayıda karar ağacının oylamasıyla çalışan klasik ML yöntemi; özellik tablosuyla hızlı ve güçlü, ham diziyle değil sayılarla çalışır.
+- **Özellik mühendisliği:** Sinyalden elle anlamlı sayılar (SFM, kurtosis…) çıkarma; derin öğrenme bunu ağın kendisine bırakır.
+- **Permütasyon önemi:** Bir özelliğin değerlerini karıştırınca doğruluğun ne kadar düştüğü; yüksek = model o özelliğe güveniyor. Birbirine benzeyen özellikler önemi böler.
+- **Ölçüm belirsizliği:** Sonlu test örneğinde doğruluğun ± oynaması; n=500'de yaklaşık ±2 puan. Bundan küçük farklar kanıt değildir.
 - **Taban çizgisi (baseline):** Kıyas için kullanılan basit model.
 - **Domain gap:** Sentetik veri ile gerçek veri arasındaki fark yüzünden performansın düşmesi.
 

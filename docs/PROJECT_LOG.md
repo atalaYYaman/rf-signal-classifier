@@ -112,3 +112,18 @@ En yeni giriş en altta. Her oturum sonunda: **Ne yaptık / Ne öğrendik / Aç�
 
 **Açık kalanlar**
 - Birleşik koşu (veri ×4 + kapasite ×4), daha çok sınıf, kademe (a), `sigs.js` doğrulaması, uzak repo (yerel).
+
+### 2026-10-11 (devam 3) — Ders 8: 14 sınıf
+**Ne yaptık**
+- 4 yeni üretici (8PSK, 64-QAM, OOK, GFSK), `CLASSES14`, `train.py --classes`. Kontroller: güç 1,0000, sızıntı 0, regresyon GEÇTİ, galeri `experiments/08_new_classes.png`.
+- CNN koşuları (14 sınıf, bozuk veri, 1500 ve 6000/sınıf), RF aynı bütçelerle; rapor `experiments/08_report.*` (`src/exp8_report.py`).
+- Sonuçlar ve karışıklıklar D-005 güncelleme 4'te.
+
+**Ne öğrendik**
+- 4 sınıf eklemek ~10 puan düşürdü; eski 10 sınıfın doğruluğu da düştü.
+- Platoya ~%88–90'da takıldık: kalan hata SNR'dan değil, QAM-16/64 ve QPSK/8PSK ayrımından.
+- RF ve CNN farklı yerlerde güçlü (faz mertebesi vs genlik seviyesi/spektral şekil): hibrit umut verici ama denenmedi.
+- Tahminim kısmen doğru çıktı (QAM/PSK çiftleri karışıyor); x⁸ testinin eksikliği RF'te psk8'i bozmuyor gibi görünüyor ama CNN'in qpsk↔psk8 karışıklığı beklenmedikti.
+
+**Açık kalanlar**
+- Hibrit/topluluk, özellik iyileştirme, CNN kapasite ×4 (14 sınıf), çoklu tohum, kademe (a), `sigs.js` doğrulaması, uzak repo (yerel).

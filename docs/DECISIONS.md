@@ -81,3 +81,22 @@ Format: **Karar → Gerekçe → Ne zaman yeniden bakılır**
 - **Sonuç:** CNN'in geride kalması büyük ölçüde **veri/kapasite eksikliğiydi**; 4× veriyle CNN 0,877, RF 0,875: **başa baş**. Ders 6'daki "RF önde" sonucu eğitim bütçesinin ürünüydü.
 - Daha çok epoch işe yaramadı (ezberleme). Veri ve kapasite işe yaradı. CNN veri artışından RF'ten daha çok yararlandı (+3,9 vs +1,5); bu eğilim sürerse fark CNN lehine açılabilir, ama **birleşik (veri ×4 + kapasite ×4) koşu denenmedi**, ekstrapolasyon varsayımdır.
 - **Sınırlar:** bu deneyde tek veri artışı basamağı (×4); test seti paylaşıldığı için ±0,65 puanlık örnekleme belirsizliği iki modelde de ortak; düşük SNR aralığında RF'in 4× veri sonucu SNR bazında hesaplanmadı. Süreler (CNN 4,5–17 dk) ölçüm tutarsızlığı nedeniyle güvenilmez.
+
+## D-008 — Genişletilmiş sınıf kümesi: 14 sınıf (2026-10-11)
+- **Karar:** `signals.CLASSES14 = CLASSES + [psk8, qam64, ook, gfsk]`. Yeni sınıflar **sona** eklendi; ilk 10 sınıfın etiket indeksi ve tohumu değişmez (regresyon: `channel=0` parmak izi GEÇTİ). `CLASSES` (10) eski deneyler için korunur; `train.py --classes 14` yeni kümeyi seçer.
+- **Gerekçe:** Her yeni sınıf mevcut bir sınıfla "zor çift" kurar: 8PSK↔QPSK, 64-QAM↔16-QAM, OOK↔AM, GFSK↔2-FSK.
+- **Sınır:** Parametre aralıkları (GFSK BT 0.3–0.5, h 0.5–1; OOK/PSK/QAM sembol hızı 4–12 örnek) varsayımdır.
+
+### D-005 — Güncelleme 4 (2026-10-11): 14 sınıf, bozuk veri
+| Sistem | Tüm | İlk 10 sınıf | Yeni 4 sınıf | −10…−5 | −5…0 | 0…5 | 5…10 | 10…15 | 15…20 dB |
+|---|---|---|---|---|---|---|---|---|---|
+| RF, 1500/sınıf | 0,756 | 0,787 | 0,678 | 0,43 | 0,67 | 0,81 | 0,85 | 0,89 | 0,87 |
+| RF, 6000/sınıf | 0,770 | 0,805 | 0,684 | 0,46 | 0,70 | 0,79 | 0,88 | 0,89 | 0,90 |
+| CNN, 1500/sınıf | 0,712 | 0,754 | 0,608 | 0,37 | 0,67 | 0,79 | 0,81 | 0,82 | 0,81 |
+| CNN, 6000/sınıf | **0,778** | 0,820 | 0,675 | 0,45 | **0,77** | 0,83 | 0,85 | 0,88 | 0,88 |
+- **Genel:** CNN ve RF 6000/sınıfta başa baş (0,778 vs 0,770). Az veride RF önde (0,756 vs 0,712), çok veride CNN yetişiyor: CNN veriden RF'ten ~5 kat fazla yararlanıyor (+6,6 vs +1,4 puan). Tek tohum.
+- **Sınıf eklemenin bedeli:** 10→14 sınıf, 6000/sınıf: CNN 0,877→0,778, RF 0,875→0,770. Eski 10 sınıf bile düştü (CNN 0,820, RF 0,805): yeni sınıflar eskilerinden doğruluk çalıyor.
+- **Tavan:** SNR ≥ 10 dB'de bile ~%88–90'da platoya iniyor; kalan hata gürültü değil, sıralı takımyıldız çiftleri (aşağıda).
+- **Karışıklık (en sık):** RF: qam16→qam64 0,38, qam64→qam16 0,30, qpsk→psk8 0,15, gfsk→fsk2 0,14. CNN: qam64→qam16 0,40, psk8↔qpsk 0,34/0,34, qam16→qam64 0,22, fsk2→gfsk 0,11.
+- **Tamamlayıcılık (gözlem):** RF faz mertebesinde (QPSK/8PSK) daha iyi (0,54/0,58 vs 0,44/0,44), CNN genlik seviyelerinde (16-QAM 0,62 vs 0,43) ve spektral şekilde (GFSK 0,86 vs 0,70) daha iyi. **Hibrit/topluluk bunu sömürebilir; denenmedi.**
+- **Sınırlar:** tek tohum; RF 1 tohum; CNN yalnızca width 32, 15 epoch (kapasite ×4 bu kümede denenmedi); özellik kümesi x⁸ testi ve sembol hızında kümülant içermiyor; kümülantların ~0 önemi hâlâ açıklanmadı.

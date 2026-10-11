@@ -49,6 +49,8 @@ Kural: yeni terim çıkınca buraya bir cümlelik açıklamayla eklenir. Alfabet
 - **Tohum (seed):** Rastgele sayı üretecinin başlangıcı; aynı tohum aynı sonucu verir. Farklı tohumlarla aynı deneyi tekrarlamak sonucun ne kadar oynadığını (gürültü tabanını) gösterir.
 - **Ezberleme belirtisi:** Eğitim kaybı düşmeye devam ederken doğrulama kaybının yükselmesi/durması (40 epoch koşusunda: 0,115 vs 0,466).
 - **Kapasite:** Modelin öğrenebileceği karmaşıklık; genelde parametre sayısıyla artar, ama veri yoksa ezbere yol açar.
+- **Topluluk (ensemble):** Birden çok modelin tahminini birleştirmek; modeller farklı hatalar yapıyorsa tek tek hepsinden iyi olabilir.
+- **Doğruluk tavanı:** SNR artsa bile doğruluğun takılıp kaldığı seviye; sebep gürültü değil, ayırt edilemeyen/bozulmuş yapı veya eksik özellik.
 - **Taban çizgisi (baseline):** Kıyas için kullanılan basit model.
 - **Domain gap:** Sentetik veri ile gerçek veri arasındaki fark yüzünden performansın düşmesi.
 

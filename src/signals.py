@@ -11,6 +11,8 @@ import numpy as np
 
 N = 1024
 CLASSES = ["noise", "tone", "am", "fm", "bpsk", "qpsk", "qam16", "fsk2", "ofdm", "radar"]
+# D-008: genişletilmiş küme. Yeni sınıflar sona eklenir; ilk 10 sınıfın etiket indeksi (ve dolayısıyla tohumu) değişmez.
+CLASSES14 = CLASSES + ["psk8", "qam64", "ook", "gfsk"]
 
 
 def _unit_power(x):
@@ -123,9 +125,41 @@ def gen_radar(rng, n=N):
     return _unit_power(gate * _carrier(rng, n, f_range=0.3))
 
 
+_PSK8 = np.exp(1j * np.arange(8) * np.pi / 4)
+_QAM64 = np.array([a + 1j * b for a in range(-7, 8, 2) for b in range(-7, 8, 2)], dtype=complex)
+
+
+def gen_psk8(rng, n=N):
+    return _linear_mod(rng, _PSK8, n)
+
+
+def gen_qam64(rng, n=N):
+    return _linear_mod(rng, _QAM64, n)
+
+
+def gen_ook(rng, n=N):
+    return _linear_mod(rng, np.array([0 + 0j, 1 + 0j]), n)
+
+
+def gen_gfsk(rng, n=N):
+    """Gauss süzgeçli FSK: bitler gauss süzgeçten geçip frekansı sürer (BT 0.3-0.5, mod. indeksi h 0.5-1)."""
+    sps = int(rng.integers(8, 25))
+    bt = rng.uniform(0.3, 0.5)
+    h = rng.uniform(0.5, 1.0)
+    bits = rng.integers(0, 2, n // sps + 8) * 2 - 1
+    up = np.repeat(bits.astype(float), sps)
+    tt = np.arange(-2 * sps, 2 * sps + 1) / sps
+    g = np.exp(-0.5 * (tt / (np.sqrt(np.log(2)) / (2 * np.pi * bt))) ** 2)
+    f = np.convolve(up, g / g.sum(), mode="same") * (h / (2 * sps))
+    start = int(rng.integers(0, 4 * sps))
+    f = f[start:start + n]
+    return np.exp(1j * (2 * np.pi * np.cumsum(f) + rng.uniform(0, 2 * np.pi))) * _carrier(rng, n, f_range=0.1)
+
+
 GENERATORS = {
     "noise": gen_noise, "tone": gen_tone, "am": gen_am, "fm": gen_fm, "bpsk": gen_bpsk,
     "qpsk": gen_qpsk, "qam16": gen_qam16, "fsk2": gen_fsk2, "ofdm": gen_ofdm, "radar": gen_radar,
+    "psk8": gen_psk8, "qam64": gen_qam64, "ook": gen_ook, "gfsk": gen_gfsk,
 }
 
 

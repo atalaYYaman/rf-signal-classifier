@@ -1,0 +1,7 @@
+== 08_c14_n1500 18:12:46
+epoch 15/15  train_loss 0.700  val_loss 0.742  val_acc 0.712  (324 sn)
+TEST doğruluk: 0.712
+== 08_c14_n6000 18:18:15
+epoch 15/15  train_loss 0.546  val_loss 0.574  val_acc 0.760  (1241 sn)
+TEST doğruluk: 0.778
+== bitti 18:39:01
